@@ -1,1 +1,5 @@
 bastion ansible_host=138.197.86.198
+
+master ansible_host=138.197.71.77
+worker1 ansible_host=138.197.71.82
+worker2 ansible_host=165.227.182.208

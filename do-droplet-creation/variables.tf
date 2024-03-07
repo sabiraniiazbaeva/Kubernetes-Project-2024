@@ -1,5 +1,5 @@
 variable "do_token" {
-    default = "dop_v1_d2f891010ededa6a5d6300e98a165bf0ba25428b4169e951d3e3f5fa4148efb6"
+    default = "dop_v1_72e017e5b3860cc0171dcd44aa301365288ae22afa8d3c80a3b22726987a9d34"
 }
 
 variable "region" {
@@ -31,3 +31,8 @@ variable "worker2_size" {
   description = "Fingerprint of the public ssh key stored on DigitalOcean"
   default = "d0:26:dd:81:5f:79:45:82:b8:00:97:5f:09:59:56:93"
 }
+
+# variable "ssh_public_key" {
+#   description = "Local public ssh key"
+#   default = "~/.ssh/id_rsa.pub"
+# }

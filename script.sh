@@ -19,11 +19,11 @@ install_ansible() {
     sudo dnf install ansible -y 
 }
 
-# function create_vms() {
-#     cd do-droplet-creation
-#     terraform init 
-#     terraform apply –-auto-approve 
-# }
+function create_vms() {
+    cd do-droplet-creation
+    terraform init 
+    terraform apply –-auto-approve 
+}
 
 if command_exists terraform; then
     echo "Terraform  is already installed"
@@ -37,7 +37,7 @@ else
     install_ansible
 fi
 
-# create_vms
+create_vms
 
 # function install_packages 
 #         cd packages
