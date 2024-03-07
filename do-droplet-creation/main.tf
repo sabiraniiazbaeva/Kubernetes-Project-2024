@@ -23,6 +23,7 @@ resource "digitalocean_droplet" "worker2" {
   name   = "worker2"
   region = var.region
   size   = var.worker2_size
+  ssh_keys = [ var.ssh_key_fingerprint ]
 #   ssh_keys = [
 #     var.ssh_fingerprint_1,
 #     var.ssh_fingerprint_2,
