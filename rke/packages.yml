@@ -1,3 +1,4 @@
+# 1. Install all depenceies
 
 - name: Install RKE, kubectl, and Docker
   hosts: all
@@ -13,6 +14,7 @@
         - curl
         - software-properties-common
 
+#Install Docker
     - name: Add Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -29,13 +31,49 @@
         state: present
       tags:  docker  
 
+
+
+  # Install RKE 
+    - name: Download RKE
+      get_url:
+      url: https://github.com/rancher/rke/releases/download/v1.5.5/rke_linux-amd64
+
+    - name: Copy file with owner and permissions
+      copy:
+      src: rke_linux-amd64
+      dest: /usr/local/bin
+      owner: 
+      group:
+      mode: '0755'
+      remote_src: yes
+
+    - name: start rke 
+      shell: rke 
+
+      
+#Install kubectl
+    - name: Install kubectl
+      shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      dest: /usr/local/bin
+
+    - name: Copy file with owner and permissions
+      copy:
+      src: kubectl
+      dest: /usr/local/bin
+      owner: 
+      group:
+      mode: '0755'
+      remote_src: yes
+
+# Create user 
+    - name: Create user
+      shell: useradd -m - G docker rke 
+
     - name: Disable swap
       command: swapoff -a
       tags: swap
 
-    - name: Install RKE
-      shell: https://github.com/rancher/rke/releases/download/v1.5.5/rke_linux-amd64
 
-    - name: Install kubectl
-      shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      
+      
    
