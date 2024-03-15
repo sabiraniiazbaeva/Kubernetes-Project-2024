@@ -65,7 +65,7 @@
       mode: '0755'
       remote_src: yes
 
-# Create user 
+# Create user and disable swap
     - name: Create user
       shell: useradd -m - G docker rke 
 
