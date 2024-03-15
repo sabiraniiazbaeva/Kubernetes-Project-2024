@@ -73,7 +73,18 @@
       command: swapoff -a
       tags: swap
 
+#Install Helm 
+    - name: Download helm 
+      get_url:
+      url: https://get.helm.sh/helm-v3.14.3-linux-amd64.tar.gz
+      dest: /tmp/helm-v3.14.3-linux-amd64.tar.gz
 
-      
+    - name: Extract helm
+      unarchive:
+      src: /tmp/helm-v3.14.3-linux-amd64.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes 
+
+#helm repo add kubernetes-dashboard
       
    
