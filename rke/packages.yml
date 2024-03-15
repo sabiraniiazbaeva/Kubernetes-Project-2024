@@ -1,40 +1,41 @@
-- name: Install RKE and Configure Kubernetes Cluster
+
+- name: Install RKE, kubectl, and Docker
   hosts: all
-  become: true
+  become: yes
   tasks:
-    - name: Add Docker repository
-      yum_repository:
-        name: docker-ce-stable
-        description: Docker CE Stable - $basearch
-        baseurl: https://download.docker.com/linux/centos/8/$basearch/stable
-        gpgcheck: yes
-        enabled: yes
-        gpgkey: https://download.docker.com/linux/centos/gpg
-
-    - name: Install Docker
-      package:
-        name: docker-ce
-        state: present
-
-    - name: Start and enable Docker
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    - name: Install Python 3 and dependencies
-      package:
+    - name: Install dependencies
+      apt:
         name: "{{ item }}"
         state: present
       loop:
-        - python3
-        - python3-pip
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
 
-    - name: Install RKE via pip
-      pip:
-        name: "rke"
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-    - name: Initialize Kubernetes Cluster with RKE
-      command: rke up
-      args:
-        chdir: /path/to/your/rke/config/directory
+    - name: Add Docker repository
+      apt_repository:
+        repo: https://docs.docker.com/install/linux/docker-ce/ubuntu/ 
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      tags:  docker  
+
+    - name: Disable swap
+      command: swapoff -a
+      tags: swap
+
+    - name: Install RKE
+      shell: https://github.com/rancher/rke/releases/download/v1.5.5/rke_linux-amd64
+
+    - name: Install kubectl
+      shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   
