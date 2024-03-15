@@ -40,5 +40,5 @@ fi
 create_vms
 
 # function install_packages 
-#         cd packages
-#         ansible-playbook install_docker.yml
+#         cd rke
+#         ansible-playbook -i hosts packages.yaml
