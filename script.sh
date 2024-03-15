@@ -39,7 +39,7 @@ fi
 
 create_vms
 
-#function install_packages () {
-#         cd rke
-#         ansible-playbook -i hosts packages.yaml
-#}
+function install_packages () {
+        cd rke
+        ansible-playbook -i hosts packages.yaml
+}
